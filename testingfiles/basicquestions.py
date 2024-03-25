@@ -1,6 +1,7 @@
+import os
 from openai import OpenAI
 
-OPENAI_API_KEY = ""
+OPENAI_API_KEY = "​"
 MODEL = "gpt-4-turbo-preview"
 
 def getQuestionData():
@@ -14,14 +15,19 @@ def getQuestion(question_format, input_text):
     response = client.chat.completions.create(
         model = MODEL,
         messages = [
-            {"role": "user", "content": "Write to me a " + question_format + "question that tests my knowledge about " + input_text},
+            {"role": "user", "content": "Write to me a " + question_format + "question that tests my knowledge about " + input_text + ". Add the answer after question and seperate the answer and question with a '#'. Furthermore, add an explanation to the answer."},
         ],
         temperature = 0,
     )
     
     return response
 
-if __name__ == "__main__":    
-    question_format, input_text = getQuestionData()
-    completion = getQuestion(question_format, input_text)
-    print(completion.choices[0].message.content)
+question_format, input_text = getQuestionData()
+completion = getQuestion(question_format, input_text)
+question = completion.choices[0].message.content.split('#')[0]
+answer = completion.choices[0].message.content.split('#')[1]
+
+if __name__ == "__main__":
+    print(question)
+    input_answer = input("Answer to question?: ")
+    print(answer)
