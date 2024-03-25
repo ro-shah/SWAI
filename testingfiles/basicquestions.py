@@ -1,6 +1,6 @@
 from openai import OpenAI
 
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = ""
 MODEL = "gpt-4-turbo-preview"
 
 def getQuestionData():
