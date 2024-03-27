@@ -1,7 +1,7 @@
 import os
 from openai import OpenAI
 
-OPENAI_API_KEY = "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​"
+OPENAI_API_KEY = "​"
 MODEL = "gpt-4-turbo-preview"
 client = OpenAI(api_key = OPENAI_API_KEY)
 
@@ -38,7 +38,9 @@ def getQuestionData():
         subject_of_question = input("Subject?: ")
         question_data = "blank"
     if from_text == 2:
-        image_text_link = str(input("image text link: "))
+        image_text_link = input("image text link: ").encode('utf-8').strip()
+        print(image_text_link)
+
         question_data = extractText(image_text_link)
         subject_of_question = "blank"
 
@@ -46,7 +48,7 @@ def getQuestionData():
         print("error")
     type_of_question = input("Type of question?: ")
     
-    return type_of_question, subject_of_question, question_data
+    return [type_of_question, subject_of_question, question_data]
 
 def createQuestion(question_format, input_text, subject_text):
     if from_text == 1:
