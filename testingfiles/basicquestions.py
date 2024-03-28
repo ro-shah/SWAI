@@ -1,7 +1,7 @@
 import os
 from openai import OpenAI
 
-OPENAI_API_KEY = "​"
+OPENAI_API_KEY = "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​"
 MODEL = "gpt-4-turbo-preview"
 client = OpenAI(api_key = OPENAI_API_KEY)
 
@@ -14,19 +14,18 @@ def extractText(image_link):
         "role": "user",
         "content": [
             {"type": "text", "text": "Extract text from this image: "},
-            {
-            "type": "image_url",
-            "image_url": {
-                "url": image_link,
-            },
-            },
-        ],
+            {"type": "image_url", 
+             "image_url": {
+                 "url": image_link
+                    },
+                },
+            ],
         }
     ],
     max_tokens = 500,
     )
 
-    image_text_str = response.choices[0].message.content
+    image_text_str = response.choices[0]
     print(image_text_str)
 
     return image_text_str
@@ -38,8 +37,7 @@ def getQuestionData():
         subject_of_question = input("Subject?: ")
         question_data = "blank"
     if from_text == 2:
-        image_text_link = input("image text link: ").encode('utf-8').strip()
-        print(image_text_link)
+        image_text_link = input("image text link: ")
 
         question_data = extractText(image_text_link)
         subject_of_question = "blank"
